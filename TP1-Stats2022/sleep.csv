@@ -1,0 +1,71 @@
+name;genus;vore;order;sleep_total;sleep_rem;awake;brain_wt;body_wt;brain_body_ratio;gest_day
+Guepard;Acinonyx;carni;Carnivora;12.1;NA;11.9;0.075;50;0.0015;95
+Singe hibou;Aotus;omni;Primates;17;1.8;7;0.012;0.6;0.02;133
+Castor de montagne;Aplodontia;herbi;Rodentia;14.4;2.4;9.6;0.0081;1.35;0.006;29
+Grande musaraigne a queue courte;Blarina;omni;Soricomorpha;14.9;2.3;9.1;0.00029;0.019;0.015263158;25
+Vache;Bos;herbi;Artiodactyla;4;0.7;20;0.423;600;0.000705;280
+Paresseux a trois doigts;Bradypus;herbi;Pilosa;14.4;2.2;9.6;0.0285;3.85;0.007402597;198
+Otarie a fourrure du Nord;Callorhinus;carni;Carnivora;8.7;1.4;15.3;0.178;55.49;0.003207785;365
+Chien domestique;Canis;carni;Carnivora;10.1;2.9;13.9;0.07;14;0.005;63
+Chevreuil;Capreolus;herbi;Artiodactyla;3;NA;21;0.0982;14.8;0.006635135;290
+Chevre;Capri;herbi;Artiodactyla;5.3;0.6;18.7;0.115;33.5;0.003432836;150
+Cochon d'Inde;Cavis;herbi;Rodentia;9.4;0.8;14.6;0.0055;0.728;0.007554945;66
+Chinchilla;Chinchilla;herbi;Rodentia;12.5;1.5;11.5;0.0064;0.42;0.015238095;112
+Taupe a nez etoile;Condylura;omni;Soricomorpha;10.3;2.2;13.7;0.001;0.06;0.016666667;45
+Rat geant africain;Cricetomys;omni;Rodentia;8.3;2;15.7;0.0066;1;0.0066;27
+Petite musaraigne a queue courte;Cryptotis;omni;Soricomorpha;9.1;1.4;14.9;0.000014;0.005;0.0028;23
+Tatou a long nez;Dasypus;carni;Cingulata;17.4;3.1;6.6;0.0108;3.5;0.003085714;120
+Hyrax de l'arbre;Dendrohyrax;herbi;Hyracoidea;5.3;0.5;18.7;0.0123;2.95;0.004169492;237
+Opossum nord-americain;Didelphis;omni;Didelphimorphia;18;4.9;6;0.0063;1.7;0.003705882;13
+Elephant d'Asie;Elephas;herbi;Proboscidea;3.9;NA;20.1;4.603;2547;0.001807224;600
+Grande chauve-souris brune;Eptesicus;insecti;Chiroptera;19.7;3.9;4.3;0.0003;0.023;0.013043478;52
+Cheval;Equus;herbi;Perissodactyla;2.9;0.6;21.1;0.655;521;0.001257198;345
+Ane domestique;Equus;herbi;Perissodactyla;3.1;0.4;20.9;0.419;187;0.002240642;365
+Herisson europeen;Erinaceus;omni;Erinaceomorpha;10.1;3.5;13.9;0.0035;0.77;0.004545455;37
+Singe de Patas;Erythrocebus;omni;Primates;10.9;1.1;13.1;0.115;10;0.0115;170
+Chat domestique;Felis;carni;Carnivora;12.5;3.2;11.5;0.0256;3.3;0.007757576;62
+Galago;Galago;omni;Primates;9.8;1.1;14.2;0.004;0.23;0.017391304;127
+Girafe;Giraffa;herbi;Artiodactyla;1.9;0.4;22.1;0.68;899.995;0.00075556;437
+Baleine pilote;Globicephalus;carni;Cetacea;2.7;0.1;21.35;3.8;800;0.00475;492
+Phoque gris;Haliochoerus;carni;Carnivora;6.2;1.5;17.8;0.325;85;0.003823529;339
+Hyrax gris;Heterohyrax;herbi;Hyracoidea;6.3;0.6;17.7;0.01227;2.625;0.004674286;195
+Humain;Homo;omni;Primates;8;1.9;16;1.4;62;0.022580645;280
+Elephant d'Afrique;Loxodonta;herbi;Proboscidea;3.3;NA;20.7;5.712;6654;0.000858431;660
+Macaque;Macaca;omni;Primates;10.1;1.2;13.9;0.179;11.1;0.016126126;183
+Hamster dore;Mesocricetus;herbi;Rodentia;14.3;3.1;9.7;0.001;0.12;0.008333333;17
+Souris de maison;Mus;herbi;Rodentia;12.5;1.4;11.5;0.0004;0.022;0.018181818;20
+Petite chauve-souris brune;Myotis;insecti;Chiroptera;19.9;2;4.1;0.00013;0.01;0.013;60
+Slow loris;Nyctibeus;carni;Primates;11;NA;13;0.0125;1.4;0.008928571;192
+Lamantin;Trichechus;herbi;Sirenia;12;NA;12;0.36;420;0.000857143;350
+Lapin;Oryctolagus;herbi;Lagomorpha;8.4;0.9;15.6;0.0121;2.5;0.00484;28
+Mouton;Ovis;herbi;Artiodactyla;3.8;0.6;20.2;0.175;55.5;0.003153153;152
+Chimpanze;Pan;omni;Primates;9.7;1.4;14.3;0.44;52.2;0.008429119;243
+Tigre;Panthera;carni;Carnivora;15.8;NA;8.2;0.2635;162.564;0.0016209;102
+Jaguar;Panthera;carni;Carnivora;10.4;NA;13.6;0.157;100;0.00157;99
+Lion;Panthera;carni;Carnivora;13.5;NA;10.5;0.24;161.499;0.001486077;110
+Babouin;Papio;omni;Primates;9.4;1;14.6;0.18;25.235;0.00713295;180
+Herisson du desert;Paraechinus;insecti;Erinaceomorpha;10.3;2.7;13.7;0.0024;0.55;0.004363636;35
+Phalanger volant;Phalanger;omni;Diprotodontia;13.7;1.8;10.3;0.0114;1.62;0.007037037;17
+Phoque de la mer Caspienne;Phoca;carni;Carnivora;3.5;0.4;20.5;0.2;86;0.002325581;332
+Tatou geant;Priodontes;insecti;Cingulata;18.1;6.1;5.9;0.081;60;0.00135;152
+Hyrax de roche;Procavia;omni;Hyracoidea;5.4;0.5;18.6;0.021;3.6;0.005833333;206
+Rat de laboratoire;Rattus;herbi;Rodentia;13;2.4;11;0.0019;0.32;0.0059375;40
+Souris africaine rayee;Rhabdomys;omni;Rodentia;8.7;NA;15.3;0.0008;0.044;0.018181818;25
+Singe ecureuil;Saimiri;omni;Primates;9.6;1.4;14.4;0.015;0.743;0.020188425;158
+Taupe d'Amerique de l'Est;Scalopus;insecti;Soricomorpha;8.4;2.1;15.6;0.0012;0.075;0.016;45
+Rat de coton;Sigmodon;herbi;Rodentia;11.3;1.1;12.7;0.00118;0.148;0.007972973;27
+Rat-taupe nu;Spalax;herbi;Rodentia;10.6;2.4;13.4;0.0022;0.122;0.018032787;70
+Ecureuil terrestre de l'Arctique;Spermophilus;herbi;Rodentia;16.6;NA;7.4;0.0057;0.92;0.006195652;28
+Ecureuil terrestre a treize lignes;Spermophilus;herbi;Rodentia;13.8;3.4;10.2;0.0004;0.101;0.003960396;28
+Musaraigne;Suncus;insecti;Soricomorpha;12.8;2;11.2;0.00033;0.048;0.006875;30
+Porc;Sus;omni;Artiodactyla;9.1;2.4;14.9;0.18;86.25;0.002086957;116
+Echidne a nez court;Tachyglossus;insecti;Monotremata;8.6;NA;15.4;0.025;4.5;0.005555556;25
+Loup gris;Canis;carni;Carnivora;7.6;NA;16.4;0.1195;36.33;0.003289293;69
+Tapir bresilien;Tapirus;herbi;Perissodactyla;4.4;1;19.6;0.169;207.501;0.000814454;398
+Tenrec;Tenrec;omni;Afrosoricida;15.6;2.3;8.4;0.0026;0.9;0.002888889;63
+Musaraigne arboricole;Tupaia;omni;Scandentia;8.9;2.6;15.1;0.0025;0.5;0.005;46
+Grand dauphin;Tursiops;carni;Cetacea;5.2;NA;18.8;1.6;173.33;0.009230947;365
+Genette commune;Genetta;carni;Carnivora;6.3;1.3;17.7;0.0175;2;0.00875;61
+Renard arctique;Vulpes;carni;Carnivora;12.5;NA;11.5;0.0445;3.38;0.01316568;52
+Renard roux;Vulpes;carni;Carnivora;9.8;2.4;14.2;0.0504;4.23;0.011914894;54
+Aye-Aye;Daubentonia;omni;Primates;11.3;NA;12.7;0.03813;2.3;0.016578261;166
