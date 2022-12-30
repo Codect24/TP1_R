@@ -38,7 +38,7 @@ iris <- read_delim("TP1-Stats2022/iris.csv", ";", escape_double = FALSE)
 sleep <- read.delim("TP1-Stats2022/sleep.csv", sep = ";", header = TRUE, dec = ".")
 mnist <- read.csv("TP1-Stats2022/mnist.csv", sep = ";", header = TRUE)
 ```
-```
+
 
 # Exercices
 
@@ -72,7 +72,7 @@ ggplot(iris, aes(x = Petal.Width, fill = Species)) + geom_histogram(bins = 20, a
 ```
 
 ```{r, webgl=TRUE}
-    #Visualisation des données dans un plan 3D avec rgl
+    #Visualisation des données dans un plan 3D avec la librairie rgl
     # On attribue une couleur à chaque espèce
     iris$color <- ifelse(iris$Species == "setosa", "red", ifelse(iris$Species == "versicolor", "blue", "green"))
     # On affiche les données dans une fenetre
@@ -124,7 +124,7 @@ ggplot(iris, aes(x = Petal.Width, fill = Species)) + geom_histogram(bins = 20, a
 
 4. Analyse des individus
 
-> (a) Présenter la projection des indivus dans le plan factoriel. Vous colorerez dans un premier temps les points en fonction de l'espèce d'iris. 
+> (a) Présenter la projection des individus dans le plan factoriel. Vous colorerez dans un premier temps les points en fonction de l'espèce d'iris.
 
 ```{r}
         #Projection des individus dans le plan factoriel
@@ -136,25 +136,42 @@ ggplot(iris, aes(x = Petal.Width, fill = Species)) + geom_histogram(bins = 20, a
         #Coloration des individus en fonction de leur contribution aux axes factoriels
         fviz_pca_ind(acp, repel = TRUE, col.ind = "contrib")
 ```
-
-> (c) Commenter la qualité de représentation des individus. 
-
+> > On peut voir que les individus qui contribuent le plus aux axes factoriels sont ceux qui sont les plus extrêmes. Cela peut s'expliquer par le fait que les individus qui contribuent le plus aux axes factoriels sont ceux qui sont les plus éloignés des autres individus.
+> (c) Commenter la qualité de représentation des individus.
+> > La qualité de représentation des individus est bonne. On peut voir que les individus sont bien répartis dans le plan factoriel. Cependant, on peut voir que les individus de la même espèce ne sont pas tous regroupés ensemble, notamment pour l'espèce versicolor et vigernica.
 5. Apprentissage statistique
 
 > L'option `addEllipses=TRUE` de la fonction `fviz_pca_ind` permet de dessiner l'ellipse de confiance (covariance ellipse error) à 95%. 
 
 > (a) Sous quelle condition la définition d'ellipses de confiance est-elle valable ? Est-ce le cas selon vous-ici ? Pourquoi ?
+> > La définition d'ellipses de confiance est valable lorsque les ellipses ne se chevauchent pas. Ici, les ellipses se chevauchent donc la définition n'est pas valable.
 ```{r}
         #On affiche les ellipses de confiance
         fviz_pca_ind(acp, repel = TRUE, col.ind = iris$Species, addEllipses = TRUE)
 ```
 
-> (b) Proposer un algorithme permettant de classifier automatiquement une nouvelle iris inconnue et ainsi déterminer son espèce. Vous évoquerez les limites de votre approche et possibilités pour pallier à ces effets. 
+> (b) Proposer un algorithme permettant de classifier automatiquement une nouvelle iris inconnue et ainsi déterminer son espèce. Vous évoquerez les limites de votre approche et possibilités pour pallier à ces effets.
+> > Un classification KNN semble être une bonne approche pour classifier automatiquement une nouvelle iris inconnue.
+> > Cependant, il faudrait faire attention à la distance utilisée pour le calcul des voisins car si la distance utilisée est trop grande, on risque de classer une nouvelle iris inconnue dans la mauvaise espèce. Il faudrait donc faire attention à la distance utilisée pour le calcul des voisins. Il faudrait également faire attention à la valeur de K car si K est trop grand, on risque de classer une nouvelle iris inconnue dans la mauvaise espèce.
+> > Teston avec un K = 3
 
 ```{r}
-        # TODO
+        # KNN avec k=3 pour classifier automatiquement une nouvelle iris inconnue
+        # On crée un jeu de données de test qui contient 20% des données
+        set.seed(123)
+        iris_train <- iris[sample(1:nrow(iris), 0.8*nrow(iris)),]
+        iris_test <- iris[-sample(1:nrow(iris), 0.8*nrow(iris)),]
+        # On crée un jeu de données d'apprentissage qui contient les autres iris
+        iris_app <- iris[-sample(1:nrow(iris), 0.8*nrow(iris)),]
+        # On crée un modèle de classification KNN avec k=3
+        modele_knn <- knn(train = iris_app[,1:4], test = iris_test[,1:4], cl = iris_app$Species, k = 3)
+        # On affiche le modèle de classification KNN
+        modele_knn
+        # On affiche la matrice de confusion
+        table(iris_test$Species, modele_knn)
+        # On affiche le taux de bonne classification
+        sum(diag(table(iris_test$Species, modele_knn)))/sum(table(iris_test$Species, modele_knn))
 ```
-
 
 5. Reprendre l'analyse du jeu de données `iris` mais en effectuant ici une ACP **non réduite**. On appliquera pour ça l'option `scale = FALSE` lors de l'exécution de la fonction `PCA`. 
 
@@ -186,6 +203,10 @@ ggplot(iris, aes(x = Petal.Width, fill = Species)) + geom_histogram(bins = 20, a
         fviz_pca_ind(acp_non_reduite, repel = TRUE, col.ind = "contrib")
 ```
 
+```{r}
+        #On affiche les ellipses de confiance
+        fviz_pca_ind(acp_non_reduite, repel = TRUE, col.ind = iris$Species, addEllipses = TRUE)
+```
 
 ## Sommeil des mammifères
 
@@ -245,7 +266,7 @@ On considère le fichier `sleep.csv` sur Celene répertoriant les données de 70
 ```{r}
         #On ne garde que les variables pertinentes pour l'ACP
         sleep_pour_acp <- sleep %>%
-                select(sleep_total, sleep_rem, awake, brain_wt, body_wt, brain_body_ratio, gest_day)
+                select(sleep_total, sleep_rem, awake, brain_wt, body_wt, brain_body_ratio, gest_day, name)
 
         #On vérifie qu'il n'y a pas de valeurs manquantes
         sum(is.na(sleep_pour_acp))
@@ -253,13 +274,6 @@ On considère le fichier `sleep.csv` sur Celene répertoriant les données de 70
         #On vérifie qu'il n'y a pas de valeurs négatives
         sum(sleep_pour_acp < 0)
 
-        #On vérifie qu'il n'y a pas de valeurs aberrantes
-        sleep_pour_acp %>%
-                select(-gest_day) %>%
-                gather(key = "variable", value = "valeur") %>%
-                ggplot(aes(x = valeur)) +
-                geom_histogram(bins = 30) +
-                facet_wrap(~variable, scales = "free")
 
 
 ```
@@ -267,26 +281,81 @@ On considère le fichier `sleep.csv` sur Celene répertoriant les données de 70
 2. On propose de compléter les données manquantes de la colonne `sleep_rem` en utilisant une technique de regression  par _la méthode des moindres carrés_. Quelle valeur est estimée pour l'individu _Lamantin_ ? Compléter les valeurs manquantes.
 
 ```{r}
+# On crée un nouveau jeu de données en ne gardant que les lignes où sleep_rem est renseigné
+sleep_rem <- sleep %>%
+        filter(!is.na(sleep_rem))
 
+# On crée un modèle de régression linéaire entre sleep_rem et les autres variables
+model <- lm(sleep_rem ~ sleep_total + awake + brain_wt + body_wt + brain_body_ratio + gest_day, data = sleep_rem)
+
+# On prédit la valeur de sleep_rem pour le lamantin
+predict(model, newdata = sleep[sleep$name == "Lamantin", -c(1, 2, 3, 4)])
+
+# On complète les valeurs manquantes
+sleep[sleep$name == "Lamantin", "sleep_rem"] <- predict(model, newdata = sleep[sleep$name == "Lamantin", -c(1, 2, 3, 4)])
 
 ```
 
-3. Calculer les valeurs propres de la matrice des données `sleep`. Combien d'axes proposez vous de retenir pour l'ACP ? Détaillez votre réponse. 
+3. Calculer les valeurs propres de la matrice des données `sleep`. Combien d'axes proposez vous de retenir pour l'ACP ? Détaillez votre réponse.
+
+```{r}
+# On supprime name
+sleep_pour_acp <- sleep_pour_acp %>% select(-name)
+# On utilise la fonction PCA de factoextra
+pca <- PCA(sleep_pour_acp, graph = FALSE, ncp = 7)
+
+# On affiche les valeurs propres
+pca$eig
+
+# On affiche le pourcentage d'inertie expliqué par chaque axe
+pca$eig / sum(pca$eig)
+
+# On affiche le biplot
+fviz_pca_biplot(pca, repel = TRUE)
+
+# On affiche le cercle des corrélations
+fviz_pca_var(pca, col.var = "contrib", gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), repel = TRUE)
+
+# On affiche le tableau des corrélations
+pca$var$coord
+```
+
 
 4. Analyse des variables
 
-> (a) Commentez la qualité de représentation et la contribution de chaque variable quant aux axes retenus. 
+> (a) Commentez la qualité de représentation et la contribution de chaque variable quant aux axes retenus.
+> > Les variables `sleep_total`, `awake` sont les plus représentatives. Les variables `sleep_rem`, `gest_day`, `brain_wt` et `body_wt` ont aussi une bonne contribution, cependant inferieure aux deux autres. La variable `brain_body_ratio` est la moins représentative.
 
-> (b) Interpréter la signification des axes retenus. Vous pourrez vous aider de la contribution des variables aux axes factoriels. 
+> (b) Interpréter la signification des axes retenus. Vous pourrez vous aider de la contribution des variables aux axes factoriels.
+> > Le temps d'eveil est positivement correle avec le temps de sommeil totale et REM. Le poid du cerveau est aussi correle avec le poid du corps.
 
 5. Analyse des individus
 
-> (a) Présenter la projection des indivus dans l'espace factoriel retenu. Vous colorerez dans un premier temps les points en fonction de la variable explicative retenue. 
+> (a) Présenter la projection des individus dans l'espace factoriel retenu. Vous colorerez dans un premier temps les points en fonction de la variable explicative retenue.
+```{r}
+# On affiche le biplot avec les individus colorés en fonction de la variable explicative (avec pca ind)
+fviz_pca_ind(pca, col.ind = "sleep_total", repel = TRUE)
+```
 
 > >  Pour une projection 3D, on utilisera la commande `plot_ly(df, x = ~Dim.1, y = ~Dim.2, z = ~Dim.3)` de la librairie `plotly` où `df` est votre dataframe des coordonnées des individus et `Dim.k`, la colonne des coordonnées sur l'axe $k$. 
+```{r}
+# On affiche le biplot avec les individus colorés en fonction de la variable explicative (avec plotly)
+# On crée un dataframe avec les coordonnées des individus
+df <- data.frame(pca$ind$coord)
+
+# On ajoute le nom des individus
+df$name <- sleep$name
+
+# On affiche le biplot avec les individus colorés en fonction de la variable explicative (avec plotly)
+plot_ly(df, x = ~Dim.1, y = ~Dim.2, z = ~Dim.3, color = ~name, type = "scatter3d", mode = "markers")
+```
 
 > (b) Colorer les individus en fonction de leur qualité de réprésentation aux axes factoriels puis en fonction de la contribution. Commentez ces résultats. 
- 
+
+```{r}
+# On affiche le biplot avec les individus colorés en fonction de leur qualité de représentation aux axes factoriels
+fviz_pca_ind(pca, col.ind = "contrib", repel = TRUE)
+```
 
 ## Classiffication de caractères manuscrits
 
@@ -334,11 +403,11 @@ L'appel `img(mnist, i)` retourne la figure correspondant au caractère manuscrit
 
 ```{r}
 # Definition du jeu de données mnist : label, pixel0, pixel1, ..., pixel783
-        #Nombre de caractères de chaque classe dans un plotly
+        #Nombre de caractères de chaque classe dans un plotly avec de la couleur
         mnist %>%
                 group_by(label) %>%
                 summarise(n = n()) %>%
-                plot_ly(x = ~label, y = ~n, type = "bar", text = ~n, textposition = "auto")
+                plot_ly(x = ~label, y = ~n, type = "bar", text = ~n, textposition = "auto", color = ~label)
 ```
 
 > >- Des premiers indicateurs sur la proportion de gris par pixel, puis agrégé par classe de caractère.
@@ -386,7 +455,7 @@ $$\left\Vert x-y\right\Vert = \sqrt{\sum_{i=1}^p (x_i-y_i)^2}$$
 > On retient ensuite uniquement les $k$ voisins $\mathbf{X_i}$ les plus proches de $x$. On regarde alors les classes $\mathbf{Y_i}$ de ces données $\mathbf{X_i}$, puis on prédit la classe la plus présente. Par défaut on utilisera $k=1$.
 
 > (a) En assumant que $\mathbf{X}$ est doté de $n$ individus définis dans un espace de dimension $p$. Quelle est la complexité de l'algorithme des $k$-Nearest Neightbors pour $k = 1$. 
-
+> > La complexité de l'algorithme des $k$-Nearest Neightbors pour $k = 1$ est de $O(n)$.
 > (b) Diviser le jeu de données `mnist` en deux ensembles : 
 
 > > - Un ensemble d'apprentissage (train set) qui contiendra 80% du jeu initial.
@@ -411,20 +480,26 @@ $$\left\Vert x-y\right\Vert = \sqrt{\sum_{i=1}^p (x_i-y_i)^2}$$
 > > > `prediction <- knn(...)`
 ```{r, eval = FALSE}
 # On applique l'algorithme knn avec k=1 sur l'ensemble d'apprentissage et de test
+start.time1 <- Sys.time()
         prediction <- knn(train[, -1], test[, -1], cl = train$label, k = 1)
+kmeans_time1 <- Sys.time() - start.time1
+
+# On affiche le temps d'execution de l'algorithme knn
+kmeans_time1
 ```
 
 > > Donner le temps d'exécution de l'algorithme.
-> > > Le temps d'exécution de l'algorithme est de 8 minutes.
+> > > Le temps d'exécution de l'algorithme est de 12 minutes.
 
 > (d) La commande `table(prediction, Y_test_label)` permet de dresser la _matrice de confusion_ $C$ de la classification effectuée. Le nombre $c_{ij}$ représente le nombre d'éléments de la classe $i$ classifiés en tant que $j$. 
 
 > > Quel est le pourcentage de caractères manuscrits de l’ensemble de test qui ont été mal classés ? Cet algorithme vous semble t-il efficace ? Quel critique peut-on lui faire ?
 ```{r}
-# On calcule le pourcentage de caractères manuscrits de l'ensemble de test qui ont été mal classés avec ggplot
+# On calcule le pourcentage de caractères manuscrits de l'ensemble de test qui ont été mal classés
         table(prediction, test$label)
-
+        sum(diag(table(prediction, test$label)))/sum(table(prediction, test$label)) * 100
 ```
+
 > (e) Pour chaque classe, identifier un exemple de caractère mal classé par l'algorithme. Vous illustrerez ces caractères à l'aide de la fonction `img` donnée plus haut et ferez figurer la classe prédite et réelle des caractères. 
 ```{r}
 # On crée un jeu de données qui contient les caractères mal classés
@@ -450,7 +525,7 @@ $$\left\Vert x-y\right\Vert = \sqrt{\sum_{i=1}^p (x_i-y_i)^2}$$
 
 ```{r}
 # On affiche la série des valeurs propres
-#         mnist_acp$eig
+         mnist_acp$eig
 # On affiche la screeplot
 fviz_screeplot(mnist_acp, ncp = 20)
 
@@ -461,27 +536,36 @@ fviz_eig(mnist_acp, addlabels = TRUE, ylim = c(0, 100))
 fviz_pca_ind(mnist_acp, col.var = "cos2", repel = TRUE, legend.title = "Cos2")
 ```
 
-```{r}
-```
 
 > > On conserve 95% de l'inertie avec 303 composantes.
 >
 > (b) Appliquer à nouveau l'algorithme kNN mais ici vous utiliserez comme jeu initial la projection via ACP réalisée à la question précédente. Que constatez-vous ? 
 ```{r}
-# On applique l'algorithme knn avec k=1 sur l'ensemble d'apprentissage et de test avec la projection via ACP
-        prediction_acp <- knn(mnist_acp$ind$coord[, 1:303], mnist_acp$ind$coord[, 1:303], cl = train$label, k = 1)
-
-
+# On realise ACP avec 303 composantes
+        mnist_acp_303 <- PCA(mnist[, -1], graph = FALSE, ncp = 303)
+# On applique l'algorithme knn avec k=1 sur l'ensemble d'apprentissage et de test
+# On convertit les données en data.frame
+    mnist_acp_303 <- as.data.frame(mnist_acp_303$ind)
+    mnist_acp_303$label <- mnist$label
+# On divise le jeu de données en deux ensembles : un ensemble d'apprentissage (train set) qui contiendra 80% du jeu initial et un ensemble test (test set) qui contiendra le reste des données.
+    set.seed
+    train <- mnist_acp_303[sample(1:nrow(mnist_acp_303), 0.8 * nrow(mnist_acp_303)), ]
+    test <- mnist_acp_303 %>%
+            anti_join(train)
+# On applique l'algorithme knn avec k=1 sur l'ensemble d'apprentissage et de test
+start.time2 <- Sys.time()
+        prediction <- knn(train[, -1], test[, -1], cl = train$label, k = 1)
+kmeans_time2 <- Sys.time() - start.time2
+kmeans_time2
 ```
+
+
 > (c) Dresser la nouvelle matrice de confusion à l'issu de la classification précédente. Comparer ces résultats avec la matrice de la question 2. (d). Que peut-on dire ?
 ```{r}
 # On calcule le pourcentage de caractères manuscrits de l'ensemble de test qui ont été mal classés
-        table(prediction, test$label) %>%
-                as.matrix() %>%
-                prop.table(1) %>%
-                as.data.frame() %>%
-                mutate(label = rownames(.)) %>%
-                select(label, prediction) %>%
-                filter(label != prediction) %>%
-                summarise(pourcentage = sum(prediction))
+        table(prediction, test$label)
+        sum(diag(table(prediction, test$label)))/sum(table(prediction, test$label)) * 100
 ```
+
+> > On constate que le pourcentage de caractères manuscrits de l'ensemble de test qui ont été mal classés est de 6% contre 4% sans ACP.
+> > On constate donc que l'ACP n'améliore pas la classification.
